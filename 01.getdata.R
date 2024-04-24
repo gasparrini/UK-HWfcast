@@ -21,7 +21,7 @@ for(x in obj) {
       to=paste0("data", "/", paste0(x, ".RDS")))
   }
 }
-rm(obj)
+rm(obj, x)
 
 ################################################################################
 # LOOKUP, POPULATION, MORTALITY RATES
@@ -64,4 +64,35 @@ if(!"deathrates_2022.zip" %in% list.files("data")) {
 }
 rm(file)
 
+################################################################################
+# SHAPEFILES FOR LSOA AND LAD
 
+# STORE LSOA SHAPEFILES (ROUGH SUPER GENERALISED)
+if(!"lsoashp.zip" %in% list.files("data")) {
+  source <- "V:/VolumeQ/AGteam/ONS/geography/shapefiles"
+  file <- paste0("Lower_Layer_Super_Output_Areas_(December_2011)_",
+    "Boundaries_Super_Generalised_Clipped_(BSC)_EW_V3")
+  file.copy(paste0(source, "/LSOA/", file, "-shp.zip"), getwd())
+  unzip(zipfile=paste0(file,"-shp.zip"), exdir=getwd())
+  lsoashp <- st_read(paste0(file, ".shp"))[2]
+  file.remove(list.files()[grep(file, list.files(), fixed=T)])
+  st_write(lsoashp, "lsoashp.shp")
+  zip("data/lsoashp.zip", list.files()[grep("lsoashp", list.files(), fixed=T)])
+  file.remove(list.files()[grep("lsoashp", list.files(), fixed=T)])
+  rm(lsoashp, source, file)
+}
+
+# STORE LAD SHAPEFILES
+if(!"ladshp.zip" %in% list.files("data")) {
+  source <- "V:/VolumeQ/AGteam/ONS/geography/shapefiles"
+  file <- "Local_Authority_Districts_(December_2011)_Boundaries_EW_BGC"
+  file.copy(paste0(source, "/LAD/", file, ".zip"), getwd())
+  unzip(zipfile=paste0(file,".zip"), exdir=getwd())
+  ladshp <- st_read(paste0(file, ".shp"))[1]
+  file.remove(list.files()[grep(file, list.files(), fixed=T)])
+  names(ladshp)[1] <- "LAD11CD"
+  st_write(ladshp, "ladshp.shp")
+  zip("data/ladshp.zip", list.files()[grep("ladshp", list.files(), fixed=T)])
+  file.remove(list.files()[grep("ladshp", list.files(), fixed=T)])
+  rm(ladshp, source, file)
+}

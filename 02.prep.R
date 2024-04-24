@@ -108,21 +108,16 @@ names(tmeanfcast)[-1] <- fcastdates
 ################################################################################
 # SHAPEFILES
 
-# LOAD LSOA SHAPEFILES (ROUGH SUPER GENERALISED)
-source <- "V:/VolumeQ/AGteam/ONS/geography/shapefiles"
-file <- "Lower_Layer_Super_Output_Areas_(December_2011)_Boundaries_Super_Generalised_Clipped_(BSC)_EW_V3"
-file.copy(paste0(source, "/LSOA/", file, "-shp.zip"), getwd())
-unzip(zipfile=paste0(file,"-shp.zip"), exdir=getwd())
-lsoashp1 <- st_read(paste0(file, ".shp"))[2]
-file.remove(list.files()[grep(file, list.files(), fixed=T)])
-lsoashp1 <- lsoashp1[match(lookup$LSOA11CD, lsoashp1$LSOA11CD),]
+# LOAD AND RE-ORDER LSOA SHAPEFILES (ROUGH SUPER GENERALISED)
+file.copy("data/lsoashp.zip", getwd())
+unzip(zipfile="lsoashp.zip", exdir=getwd())
+lsoashp <- st_read("lsoashp.shp")
+file.remove(list.files()[grep("lsoashp", list.files(), fixed=T)])
+lsoashp <- lsoashp[match(lookup$LSOA11CD, lsoashp$LSOA11CD),]
 
-# LOAD LAD SHAPEFILES
-source <- "V:/VolumeQ/AGteam/ONS/geography/shapefiles"
-file <- "Local_Authority_Districts_(December_2011)_Boundaries_EW_BGC"
-file.copy(paste0(source, "/LAD/", file, ".zip"), getwd())
-unzip(zipfile=paste0(file,".zip"), exdir=getwd())
-ladshp <- st_read(paste0(file, ".shp"))[1]
-file.remove(list.files()[grep(file, list.files(), fixed=T)])
-names(ladshp)[1] <- "LAD11CD"
+# LOAD AND RE-ORDER LAD SHAPEFILES
+file.copy("data/ladshp.zip", getwd())
+unzip(zipfile="ladshp.zip", exdir=getwd())
+ladshp <- st_read("ladshp.shp")
+file.remove(list.files()[grep("ladshp", list.files(), fixed=T)])
 ladshp <- ladshp[match(listlad, ladshp$LAD11CD),]

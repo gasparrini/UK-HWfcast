@@ -9,7 +9,7 @@
 ################################################################################
 # MAPS OF EXCESS DEATH RATE AND TEMPERATURE DIFFERENCE WITH MAX
 
-fcastmap <- merge(lsoashp1, lookup[c("LSOA11CD","LAD11CD")]) |>
+fcastmap <- merge(lsoashp, lookup[c("LSOA11CD","LAD11CD")]) |>
   merge(fcastlsoa[agegr=="all",c("LSOA11CD","date","an","pop","diff")]) |>
   mutate(rate=an/pop*10^6)
 ladmap <- merge(ladshp, unique(lookup[c("LAD11CD","RGN11CD")]), sort=F)
@@ -42,9 +42,9 @@ png("figures/fcastdeath.png", height=3400*0.7, width=4000*0.7, res=288)
 ukfcastdeath
 dev.off()
 
-pdf("figures/fcastdeath.pdf", height=11.2*0.7, width=13.20*0.7)
-ukfcastdeath
-dev.off()
+# pdf("figures/fcastdeath.pdf", height=11.2*0.7, width=13.20*0.7)
+# ukfcastdeath
+# dev.off()
 
 ################################################################################
 # MAP OF TEMPERATURE ABOVE MAX
