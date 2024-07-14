@@ -149,4 +149,4 @@ fcastaggr$date <- factor(fcastaggr$date, levels=unique(fcastaggr$date))
 rm(fcastreslist, temp)
 
 # SAVE
-save.image("temp/effects.RData")
+#save.image("temp/effects.RData")

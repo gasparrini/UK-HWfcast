@@ -57,7 +57,8 @@ agecut1 <- c(0,1,1:18*5)
 agecut2 <- c(0, 1:18*5-1,90)
 pop <- cbind(pop[1], mapply(':', agecut1, agecut2) |>
   lapply(function(x) rowSums(pop[paste0("age", x)])) |> Reduce(cbind, x=_))
-names(pop)[-1] <- mapply(paste0, "age", agecut1, agecut2)
+names(pop)[-1] <- mapply(paste0, "age", sprintf("%02d", agecut1),
+  sprintf("%02d", agecut2))
 
 # RESHAPE
 pop <- pivot_longer(pop, !LSOA11CD, names_to="agegr", values_to="pop") |>

@@ -1,8 +1,6 @@
 # Folders
-#data/
-#figures/
-#tables/
 temp/
+getdata/
 
 # History files
 .Rhistory
