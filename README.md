@@ -6,7 +6,7 @@ A illustration of the development of an operational framework for the forecast o
 
 This repository stores the updated R code and data to reproduce the analysis of the case study presented in the article:
 
-Mistry MN, Gasparrini A. Real-time forecast of temperature-related excess mortality at small-area level: towards an operational framework. *Environmental Research: Health*. 2024; accepted for publication. DOI: xxx. [[freely available here](xxx)]
+Mistry MN, Gasparrini A. Real-time forecast of temperature-related excess mortality at small-area level: towards an operational framework. *Environmental Research: Health*. 2024;2:035011. DOI: 10.1088/2752-5309/ad5f51. [[freely available here](https://doi.org/10.1088/2752-5309/ad5f51)]
 
 This work was supported by the Medical Research Council UK (Grant ID: MR/V034162/1) and the European Commission (H2020-MSCA-IF-2020) under REA grant agreement no. 101022870. 
 
