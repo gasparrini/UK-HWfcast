@@ -16,7 +16,7 @@ The case study presents an analysis on the excess deaths during the July 2022 he
 
 The sub-folder *data* includes a series of files listed below. These files contain data and parameters of the original small-area analysis on temperature-mortality associations that are used here to quantify the excess deaths during the July 2022 heatwave. Details on the study design and statistical methods are provided in the article. The files:
 
--  *tmeanfcast.zip*: zipped dataset with the daily mean temperature forecasted for the days 17-22 July 2022 obtained by ECMWF, and extracted from their original gridded format to each LSOA by area-weighted averaging (see the section below about Phyton code).
+-  *tmeanfcast.zip*: zipped dataset with the daily mean temperature forecasted for the days 17-22 July 2022 obtained by ECMWF, and extracted from their original gridded format to each LSOA by area-weighted averaging (see the section below about Python code).
 -  *population_2020.zip* and *deathrates_2022.zip*: age-specific population distribution for 2020 at LSOA level and mortality rates for 2022 at regional level obtained from NOMIS.
 -  *lookup.zip*: zipped dataset containing the lookup table between LSOAs and regions.
 -  *coefmeta.RDS* and *vcovmeta.RDS*: coefficients and related (co)variance matrix of the second-stage meta-analytical model used in the original analysis by Gasparrini et al (see reference above) to predict the LSOA and age-specific risk functions.
@@ -33,6 +33,6 @@ The four R scripts reproduces all the parts of the forecast analysis and the ful
 -   *03.tables.R* produces the table included in the article with the main aggregated figures.
 -   *04.maps.R* produces the maps included in the article, in particular the one illustrating the geographical and temporal distribution of excess deaths.
 
-### Phyton code
+### Python code
 
-The sub-folder *download* provides the Jupiter Notebook script *download_ecmwf_forecast.ipynb* with the Phyton code to download the gridded temperature forecast data. Note that the code offers an example to retrieve data for the corresponding days (17-22 July) in 2024 at 0.25 degrees, as the original database at 0.4 degrees for 2022 is not avaialble anymore. Some documentation and specific details are provided in the pdf document in the same sub-folder.
+The sub-folder *download* provides the Jupiter Notebook script *download_ecmwf_forecast.ipynb* with the Python code to download the gridded temperature forecast data. Note that the code offers an example to retrieve data for the corresponding days (17-22 July) in 2024 at 0.25 degrees, as the original database at 0.4 degrees for 2022 is not available anymore. Some documentation and specific details are provided in the pdf document in the same sub-folder.
