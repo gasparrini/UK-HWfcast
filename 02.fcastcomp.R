@@ -48,18 +48,22 @@ fcastreslist <- foreach(i=seq(listlsoa), .packages=pack) %dopar% {
 
     # RECONSTRUCT THE MODEL MATRIX OF THE META-REGRESSION AT LSOA LEVEL
     lsoavar <- cbind(agegr=agevarlab[j], lsoacomp[i,])
-    Xdeslsoa <- paste0("~", paste0(c("agegr", names(lsoacomp)[-1]), collapse="+")) |>
-      formula() |> delete.response() |> 
-      model.matrix(data=lsoavar, xlev=list(agegr=agevarlab))
+    form <- paste("~", paste(c("agegr", names(lsoacomp)[-1]), collapse="+")) |>
+      formula()
+    Xdeslsoa <- model.matrix(form, data=lsoavar, xlev=list(agegr=agevarlab))
     
     # PREDICT COEF/VCOV FOR LSOA/AGE
     fit <- (Xdeslsoa %x% diag(vardf)) %*% coefmeta |> drop()
     vcov <- (Xdeslsoa %x% diag(vardf)) %*% vcovmeta %*% t(Xdeslsoa %x% diag(vardf))
     lsoapar <- list(fit=fit, vcov=vcov)
     
-    # IDENTIFY THE MMT AND SET FORECASTED TEMPERATURES (ABOVE MMT ONLY) 
-    mmt <- subset(lsoammtmmp, LSOA11CD==listlsoa[i] & 
-        agegr==agevarlab[j])$mmt
+    # IDENTIFY THE MMT (BETWEEN 1ST AND 99TH)
+    seqtmean <- seq(round(tmeanper["1.0%"],1), round(tmeanper["99.0%"],1), 
+      by=0.1)
+    bvar <- do.call(onebasis, c(list(x=seqtmean), argvar))
+    mmt <- seqtmean[[which.min(bvar%*%lsoapar$fit)]]
+    
+    # SET FORECASTED TEMPERATURES (ABOVE MMT ONLY) 
     tmean <- pmax(as.numeric(tmeanfcast[i,-1]), mmt)
     
     # DERIVE THE CENTERED BASIS (SUPPRESS WARNINGS DUE TO BOUNDARIES)

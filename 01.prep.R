@@ -10,7 +10,7 @@
 # MODEL PARAMETERS AND SMALL-AREA STATISTICS
 
 # SELECT OBJECTS
-obj <- c("coefmeta","vcovmeta","lsoacomp","lsoatmeanper","lsoammtmmp")
+obj <- c("coefmeta","vcovmeta","lsoacomp","lsoatmeanper")
 
 # LOAD OBJECTS
 for(x in obj) assign(x, readRDS(paste0("data/", x, ".RDS")))
@@ -77,7 +77,7 @@ names(deathrate)[1] <- "agegr"
 deathrate <- pivot_longer(deathrate, -1, names_to="RGN11CD", values_to="rate") |>
   as.data.frame()
 
-# MERGE AND COMPUTE NUMBER OF DEATH PER YEAR
+# MERGE, COMPUTE NUMBER OF DEATH PER YEAR
 lsoapopdeath <- lookup[c("LSOA11CD", "RGN11CD")] |> merge(pop) |> 
   merge(deathrate) |> mutate(deathyear=rate*pop/10^5)
 
@@ -91,6 +91,9 @@ lsoapopdeath <- summarise(lsoapopdeath, pop=sum(pop), deathyear=sum(deathyear),
 lsoapopdeath <- summarise(lsoapopdeath, pop=sum(pop), deathyear=sum(deathyear),
   .by=LSOA11CD) |> mutate(agegr="all") |> rbind(lsoapopdeath) |>
   arrange(LSOA11CD, agegr)
+
+# CLEAN
+rm(pop, deathrate)
 
 ################################################################################
 # FORECASTED TEMPERATURE DURING THE JULY 2022 HEATWAVE
