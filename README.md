@@ -23,7 +23,7 @@ The sub-folder *data* includes a series of files listed below. These files conta
 -  *lsoatmeanper.RDS*, *lsoammtmmp.RDS*, and *lsoacomp.RDS*: LSOA-specific temperature percentiles, estimated minimum mortality temperature and related percentile (MMT and MMP), and values of principal component vulnerability factors. This information is used to reconstruct LSOA and age-specific risk functions.
 -  *lsoashp.zip* and *ladshp.zip*: zipped shapefiles representing the geographical boundaries of LSOAs and local authority districs (LADs).
 
-### R code
+### Main code
 
 The four R scripts reproduces all the parts of the forecast analysis and the full results. Details are provided in the article, with comments throughout the scripts describing the specific steps. The scripts:
 
@@ -33,6 +33,6 @@ The four R scripts reproduces all the parts of the forecast analysis and the ful
 -   *03.tables.R* produces the table included in the article with the main aggregated figures.
 -   *04.maps.R* produces the maps included in the article, in particular the one illustrating the geographical and temporal distribution of excess deaths.
 
-### Python code
+### Code for assembling the temperature data
 
-The sub-folder *download* provides the Jupiter Notebook script *download_ecmwf_forecast.ipynb* with the Python code to download the gridded temperature forecast data. Note that the code offers an example to retrieve data for the corresponding days (17-22 July) in 2024 at 0.25 degrees, as the original database at 0.4 degrees for 2022 is not available anymore. Some documentation and specific details are provided in the pdf document in the same sub-folder.
+The sub-folder *download* provides the Jupiter Notebook script *download_ecmwf_forecast.ipynb* with the Python code to download the gridded temperature forecast data, and aggregate the same to the LSOA boundaries. Note that the code offers an example to retrieve data for the current forecast at 0.25 degrees, as the original database at 0.4 degrees for 2022 is not available anymore, though it can be downloaded from the ECMWF archive as indicated in the code. A pdf and html version of the notebook document in also provided in the the same sub-folder. Separately, an implementation of the LSOA-level data aggregation of daily mean temperature is also provided in the R script *aggregate_ecmwf_forecast.R*.
